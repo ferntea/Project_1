@@ -1,3 +1,5 @@
+import os
+import pandas as pd
 import yfinance as yf
 
 def fetch_stock_data(ticker, period='1mo'):
@@ -39,7 +41,6 @@ def calculate_and_display_average_price(data):
     average_price = data['Close'].mean()
     print(f"\nСредняя цена закрытия акций за заданный период: {average_price:.2f}\n")
 
-
 def notify_if_strong_fluctuations(data, threshold):
     """
     Уведомляет пользователя, если цена акций колебалась более чем на заданный процент за период.
@@ -56,3 +57,22 @@ def notify_if_strong_fluctuations(data, threshold):
         print(f"Уведомление: Цена акций колебалась более чем на {threshold}% за период. "
               f"Максимальная цена: {max_price:.2f}, Минимальная цена: {min_price:.2f}, "
               f"Общее колебание: {fluctuation:.2f}%")
+
+def export_data_to_csv(data, filename):
+    """
+    Сохраняет данные об акциях в CSV файл в директории /results.
+
+    Параметры:
+    data (DataFrame): Данные об акциях, которые нужно сохранить.
+    filename (str): Имя файла для сохранения данных.
+    """
+    # Ensure the results directory exists
+    if not os.path.exists('results'):
+        os.makedirs('results')
+
+    # Create the full path for the CSV file
+    full_path = os.path.join('results', filename)
+
+    # Save DataFrame to CSV, including the index
+    data.to_csv(full_path, index=True)
+    print(f"Данные сохранены в файл: {full_path}")

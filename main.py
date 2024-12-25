@@ -1,6 +1,6 @@
 import data_download as dd
 import data_plotting as dplt
-
+from datetime import datetime
 
 def main():
     print("Добро пожаловать в инструмент получения и построения графиков биржевых данных.")
@@ -15,6 +15,13 @@ def main():
 
     # Fetch stock data
     stock_data = dd.fetch_stock_data(ticker, period)
+
+    # Generate filename with current date and time
+    current_time = datetime.now().strftime("%Y%m%d_%H%M%S")  # Format: YYYYMMDD_HHMMSS
+    filename = f"{ticker}_{period}_stock_data_{current_time}.csv"  # Create the filename
+
+    # Export stock data to CSV
+    dd.export_data_to_csv(stock_data, filename)
 
     # Calculate and display average closing price
     dd.calculate_and_display_average_price(stock_data)
