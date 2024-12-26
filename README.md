@@ -44,38 +44,41 @@
 В качестве примера на этой стадии добавлены 
 графический файл AAPL_5y_stock_price_chart_20241225_073438.png
 CSV файл AAPL_5y_stock_data_20241225_073428.csv
-
+4. Реализована функция для расчёта и отображения на графике дополнительных технических индикаторов, например, RSI или MACD.
+Соответствующие исзенения внесены в файлы main.py, data_download.py, data_plotting
 
 # Примеры графиков акций
 
 ## График цен акций и скользящего среднего для компании Apple
 
-![График цен акций Apple](images/AAPL_1mo_stock_price_chart.png)
-![График цен акций Apple](images/AAPL_1y_stock_price_chart.png)
+![График цен акций Apple](results/AAPL_1mo_stock_price_chart.png)
+![График цен акций Apple](results/AAPL_1y_stock_price_chart.png)
 
 ## График цен акций и скользящего среднего для компании Amazon
 
-![График цен акций Amazon](images/AMZN_5y_stock_price_chart.png)
+![График цен акций Amazon](results/AMZN_5y_stock_price_chart.png)
 
 ## График цен акций и скользящего среднего для компании Google
 
-![График цен акций Google](images/GOOGL_1y_stock_price_chart.png)
+![График цен акций Google](results/GOOGL_1y_stock_price_chart.png)
 
 ## График цен акций и скользящего среднего для компании Microsoft
 
-![График цен акций Microsoft](images/MSFT_5y_stock_price_chart.png)
+![График цен акций Microsoft](results/MSFT_5y_stock_price_chart.png)
 
 
 # Примеры выполнения кода в консоли с выводом средней цены акций за опрееделенный период
 
 ## Средняя ценая закрытия акций компании Apple за разные периоды времени
 
-![График цен акций Microsoft](images/project_1_screen1.png)
+![График цен акций Microsoft](results/project_1_screen1.png)
 
-![График цен акций Microsoft](images/project_1_screen2.png)
+![График цен акций Microsoft](results/project_1_screen2.png)
 
 ## Ввод порога колебаний цены и уведомление о превышении цены акций компании Apple за 1 месяц
 
-![График цен акций Microsoft](images/project_1_task_2_screen.png)
+![График цен акций Microsoft](results/project_1_task_2_screen.png)
 
+## Цена акций, а также индексы RSI и Macd комании Google за период 6 месяцев
 
+![График Цена акций, а также индексы RSI и Macd комании Google](results/GOOGL_6mo_stock_price_chart_20241227_023849.png)

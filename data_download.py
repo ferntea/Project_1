@@ -1,78 +1,114 @@
 import os
 import pandas as pd
-import yfinance as yf
+import yfinance as yf  # Assuming you're using yfinance to fetch stock data
 
-def fetch_stock_data(ticker, period='1mo'):
+def fetch_stock_data(ticker, period):
     """
-    Получает исторические данные об акциях для указанного тикера и временного периода.
+    Получает данные о акциях для заданного тикера и периода.
 
     Параметры:
-    ticker (str): Тикер акции, например 'AAPL'.
-    period (str): Период времени для получения данных, по умолчанию '1mo'.
+    ticker (str): Символ тикера акции.
+    period (str): Период, за который нужно получить данные.
 
     Возвращает:
-    DataFrame: Данные об акциях в формате DataFrame.
+    DataFrame: Данные о акциях, включая цены закрытия.
     """
-    stock = yf.Ticker(ticker)
-    data = stock.history(period=period)
+    data = yf.download(ticker, period=period)
     return data
-
-def add_moving_average(data, window_size=5):
-    """
-    Добавляет колонку со скользящим средним к данным о ценах закрытия.
-
-    Параметры:
-    data (DataFrame): Данные об акциях, включая цены закрытия.
-    window_size (int): Размер окна для расчёта скользящего среднего, по умолчанию 5.
-
-    Возвращает:
-    DataFrame: Данные об акциях с добавленной колонкой скользящего среднего.
-    """
-    data['Moving_Average'] = data['Close'].rolling(window=window_size).mean()
-    return data
-
-def calculate_and_display_average_price(data):
-    """
-    Рассчитывает и отображает среднюю цену закрытия акций за заданный период.
-
-    Параметры:
-    data (DataFrame): Данные об акциях, включая цены закрытия.
-    """
-    average_price = data['Close'].mean()
-    print(f"\nСредняя цена закрытия акций за заданный период: {average_price:.2f}\n")
-
-def notify_if_strong_fluctuations(data, threshold):
-    """
-    Уведомляет пользователя, если цена акций колебалась более чем на заданный процент за период.
-
-    Параметры:
-    data (DataFrame): Данные об акциях, включая цены закрытия.
-    threshold (float): Порог колебаний в процентах.
-    """
-    max_price = data['Close'].max()
-    min_price = data['Close'].min()
-    fluctuation = ((max_price - min_price) / min_price) * 100  # Calculate percentage fluctuation
-
-    if fluctuation > threshold:
-        print(f"Уведомление: Цена акций колебалась более чем на {threshold}% за период. "
-              f"Максимальная цена: {max_price:.2f}, Минимальная цена: {min_price:.2f}, "
-              f"Общее колебание: {fluctuation:.2f}%")
 
 def export_data_to_csv(data, filename):
     """
-    Сохраняет данные об акциях в CSV файл в директории /results.
+    Экспортирует данные о акциях в CSV файл.
 
     Параметры:
-    data (DataFrame): Данные об акциях, которые нужно сохранить.
+    data (DataFrame): Данные о акциях для экспорта.
     filename (str): Имя файла для сохранения данных.
     """
     # Ensure the results directory exists
     if not os.path.exists('results'):
         os.makedirs('results')
 
-    # Create the full path for the CSV file
-    full_path = os.path.join('results', filename)
+    # Save the data to the specified CSV file in the results directory
+    filepath = os.path.join('results', filename)
+    data.to_csv(filepath)
+    print(f"Данные сохранены в файл: {filepath}")
 
-    # Save DataFrame to CSV, including the index
-    data.to_csv(full_path, index=True)
-    print(f"Данные сохранены в файл: {full_path}")
+def calculate_and_display_average_price(data, ticker):
+    """
+    Рассчитывает и отображает среднюю цену закрытия.
+
+    Параметры:
+    data (DataFrame): Данные о акциях.
+    ticker (str): Символ тикера акции для доступа к правильному столбцу.
+    """
+    print("Структура DataFrame:")
+    print(data.head())  # Показать первые несколько строк DataFrame
+    print("Столбцы DataFrame:", data.columns)  # Показать столбцы в DataFrame
+
+    # Access the 'Close' column using the MultiIndex
+    close_column = ('Close', ticker)
+    if close_column not in data.columns:
+        raise ValueError(f"DataFrame должен содержать столбец '{close_column}'.")
+
+    # Убедитесь, что столбец 'Close' является числовым
+    data[close_column] = pd.to_numeric(data[close_column], errors='coerce')
+
+    average_price = data[close_column].mean()  # Это должно вернуть скалярное значение
+    if pd.isna(average_price):
+        print("Не удалось рассчитать среднюю цену закрытия. Проверьте данные.")
+    else:
+        print(f"Средняя цена закрытия: {average_price:.2f}")
+
+def add_moving_average(data, ticker, window=20):
+    """
+    Добавляет скользящее среднее к данным о акциях.
+
+    Параметры:
+    data (DataFrame): Данные о акциях.
+    ticker (str): Символ тикера акции для доступа к правильному столбцу.
+    window (int): Размер окна для скользящего среднего.
+
+    Возвращает:
+    DataFrame: Данные о акциях с добавленным столбцом скользящего среднего.
+    """
+    close_column = ('Close', ticker)
+    data['Moving_Average'] = data[close_column].rolling(window=window).mean()
+    return data
+
+def calculate_rsi(data, ticker, window=14):
+    """
+    Рассчитывает индекс относительной силы (RSI) для данных о ценах закрытия.
+
+    Параметры:
+    data (DataFrame): Данные о акциях, включая цены закрытия.
+    ticker (str): Символ тикера акции для доступа к правильному столбцу.
+    window (int): Период для расчета RSI, по умолчанию 14.
+
+    Возвращает:
+    DataFrame: Данные о акциях с добавленным столбцом RSI.
+    """
+    close_column = ('Close', ticker)
+    delta = data[close_column].diff()
+    gain = (delta.where(delta > 0, 0)).rolling(window=window).mean()
+    loss = (-delta.where(delta < 0, 0)).rolling(window=window).mean()
+    rs = gain / loss
+    data['RSI'] = 100 - (100 / (1 + rs))
+    return data
+
+def calculate_macd(data, ticker):
+    """
+    Рассчитывает MACD для данных о ценах закрытия.
+
+    Параметры:
+    data (DataFrame): Данные о акциях, включая цены закрытия.
+    ticker (str): Символ тикера акции для доступа к правильному столбцу.
+
+    Возвращает:
+    DataFrame: Данные о акциях с добавленным столбцом MACD и сигнальной линией.
+    """
+    close_column = ('Close', ticker)
+    exp1 = data[close_column].ewm(span=12, adjust=False).mean()
+    exp2 = data[close_column].ewm(span=26, adjust=False).mean()
+    data['MACD'] = exp1 - exp2
+    data['Signal_Line'] = data['MACD'].ewm(span=9, adjust=False).mean()
+    return data

@@ -16,6 +16,11 @@ def main():
     # Fetch stock data
     stock_data = dd.fetch_stock_data(ticker, period)
 
+    # Check if stock_data is None or empty
+    if stock_data is None or stock_data.empty:
+        print("Не удалось получить данные о акциях. Проверьте тикер и период.")
+        return
+
     # Generate filename with current date and time
     current_time = datetime.now().strftime("%Y%m%d_%H%M%S")  # Format: YYYYMMDD_HHMMSS
     filename = f"{ticker}_{period}_stock_data_{current_time}.csv"  # Create the filename
@@ -24,14 +29,19 @@ def main():
     dd.export_data_to_csv(stock_data, filename)
 
     # Calculate and display average closing price
-    dd.calculate_and_display_average_price(stock_data)
+    dd.calculate_and_display_average_price(stock_data, ticker)
 
     # Add moving average to the data
-    stock_data = dd.add_moving_average(stock_data)
+    stock_data = dd.add_moving_average(stock_data, ticker)  # Pass ticker here
 
-    # Notify if there are strong fluctuations
-    threshold = float(input("Введите порог колебаний в процентах (например, 5 для 5%): "))
-    dd.notify_if_strong_fluctuations(stock_data, threshold)
+    # Calculate RSI and MACD
+    stock_data = dd.calculate_rsi(stock_data, ticker)  # Pass ticker here
+    stock_data = dd.calculate_macd(stock_data, ticker)  # Pass ticker here
+
+    # Check if stock_data is still valid after calculations
+    if stock_data is None or stock_data.empty:
+        print("Ошибка при расчете индикаторов. Проверьте данные.")
+        return
 
     # Plot the data
     print("Сохранение графика...")
