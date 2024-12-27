@@ -2,19 +2,30 @@ import os
 import pandas as pd
 import yfinance as yf  # Assuming you're using yfinance to fetch stock data
 
-def fetch_stock_data(ticker, period):
-    """
-    Получает данные о акциях для заданного тикера и периода.
+import pandas as pd
+import yfinance as yf
 
-    Параметры:
-    ticker (str): Символ тикера акции.
-    period (str): Период, за который нужно получить данные.
 
-    Возвращает:
-    DataFrame: Данные о акциях, включая цены закрытия.
+def fetch_stock_data(ticker, period=None, start_date=None, end_date=None):
     """
-    data = yf.download(ticker, period=period)
-    return data
+    Получает данные о акциях для заданного тикера.
+
+    :param ticker: Тикер акции (например, 'AAPL')
+    :param period: Предустановленный период для данных (например, '1mo', '1y')
+    :param start_date: Дата начала для пользовательского диапазона дат (формат: 'YYYY-MM-DD')
+    :param end_date: Дата окончания для пользовательского диапазона дат (формат: 'YYYY-MM-DD')
+    :return: DataFrame, содержащий данные о акциях
+    """
+    if period:
+        # Fetch data using predefined period
+        stock_data = yf.download(ticker, period=period)
+    elif start_date and end_date:
+        # Fetch data using custom date range
+        stock_data = yf.download(ticker, start=start_date, end=end_date)
+    else:
+        raise ValueError("Either period or both start_date and end_date must be provided.")
+
+    return stock_data
 
 def export_data_to_csv(data, filename):
     """
