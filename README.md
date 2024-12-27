@@ -84,6 +84,6 @@ CSV файл AAPL_5y_stock_data_20241225_073428.csv
 
 ![График Цена акций, а также индексы RSI и Macd комании Google](results/GOOGL_6mo_stock_price_chart_20241227_023849.png)
 
-## Цена акций, а также индексы RSI и Macd комании Apple за период 2022-02-01 -- 2024-11-02
+## Цена акций, а также индексы RSI и Macd комании Apple за заданный период
 
-![График Цена акций и индексы RSI и Macd комании Apple за период 2022-02-01 -- 2024-11-02] (results/AAPL_None_stock_price_chart_20241228_003520.png)
+![График Цена акций и индексы RSI и Macd комании Apple за заданный период] (results/AAPL_None_stock_price_chart_20241228_003520.png)
