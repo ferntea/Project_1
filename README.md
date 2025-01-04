@@ -100,4 +100,4 @@ CSV файл AAPL_5y_stock_data_20241225_073428.csv
 
 ## Пример выбора стиля графика "dark_background"
 
-![Пример выбора стиля графика "dark_background"](results/AAPL_6mo_stock_price_chart_20250104_164658.png)
+![Пример выбора стиля графика "dark_background"](results/TSLA_5y_stock_price_chart_20250104_165340.png)
