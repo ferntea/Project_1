@@ -90,6 +90,7 @@ CSV файл AAPL_5y_stock_data_20241225_073428.csv
 ## Цена акций, а также индексы RSI и Macd комании Apple за заданный период
 
 ![График Цена акций и индексы RSI и Macd комании Apple](results/AAPL_None_stock_price_chart_20241228_003520.png)
+<<<<<<< HEAD
 
 
 ## Пример выбора стиля графика "bmh" (Bayesian Methods for Hackers)
@@ -101,3 +102,5 @@ CSV файл AAPL_5y_stock_data_20241225_073428.csv
 ## Пример выбора стиля графика "dark_background"
 
 ![Пример выбора стиля графика "dark_background"](results/AAPL_6mo_stock_price_chart_20250104_164658)
+=======
+>>>>>>> c0d1d0a32274c004cf5b2cbcd040295325171dc2
