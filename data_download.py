@@ -29,7 +29,7 @@ def fetch_stock_data(ticker, period=None, start_date=None, end_date=None):
 
 def export_data_to_csv(data, filename):
     """
-    Экспортирует данные о акциях в CSV файл.
+    Экспортирует данные об акциях в CSV файл
 
     Параметры:
     data (DataFrame): Данные о акциях для экспорта.
@@ -46,7 +46,7 @@ def export_data_to_csv(data, filename):
 
 def calculate_and_display_average_price(data, ticker):
     """
-    Рассчитывает и отображает среднюю цену закрытия.
+    Рассчитывает и отображает среднюю цену закрытия
 
     Параметры:
     data (DataFrame): Данные о акциях.

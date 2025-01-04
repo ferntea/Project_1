@@ -2,6 +2,7 @@ import data_download as dd
 import data_plotting as dplt
 from datetime import datetime
 
+
 def main():
     print("Добро пожаловать в инструмент получения и построения графиков биржевых данных.")
     print("Вот несколько примеров биржевых тикеров, которые вы можете рассмотреть: "
@@ -37,7 +38,7 @@ def main():
     current_time = datetime.now().strftime("%Y%m%d_%H%M%S")  # Format: YYYYMMDD_HHMMSS
     filename = f"{ticker}_{'custom_dates' if use_custom_dates == 'да' else period}_stock_data_{current_time}.csv"  # Create the filename
 
-    # Export stock data to CSV
+    # Export stock data to CSV file
     dd.export_data_to_csv(stock_data, filename)
 
     # Calculate and display average closing price
@@ -55,9 +56,13 @@ def main():
         print("Ошибка при расчете индикаторов. Проверьте данные.")
         return
 
+    # Ask user for plot style
+    plot_style = input(
+        "Введите стиль графика (например, 'ggplot', 'classic', 'bmh', 'dark_background'): ").strip()
+
     # Plot the data
     print("Сохранение графика...")
-    dplt.create_and_save_plot(stock_data, ticker, period)
+    dplt.create_and_save_plot(stock_data, ticker, period, plot_style)
 
 
 if __name__ == "__main__":

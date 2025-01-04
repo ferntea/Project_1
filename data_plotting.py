@@ -4,20 +4,24 @@ import pandas as pd
 from datetime import datetime
 import pytz
 
-def create_and_save_plot(data, ticker, period, filename=None):
+def create_and_save_plot(data, ticker, period, style='classic', filename=None):
     """
-    Создаёт график, отображающий цены закрытия, скользящие средние, RSI и MACD, и сохраняет его в файл.
+    Создает график, отображающий цены закрытия, скользящие средние, RSI и MACD, и сохраняет его в файл.
 
     Параметры:
     data (DataFrame): Данные о акциях, включая цены закрытия и индикаторы.
     ticker (str): Тикер акции, который будет отображён на графике.
     period (str): Период времени, который будет отображён на графике.
+    style (str): Стиль графика, который будет применён (по умолчанию 'classic').
     filename (str, опционально): Имя файла для сохранения графика. Если не указано,
                                   имя файла генерируется автоматически.
 
     Возвращает:
     None
     """
+    # Установите стиль графика
+    plt.style.use(style)
+
     fig, (ax1, ax2, ax3) = plt.subplots(3, 1, figsize=(10, 12), sharex=True)
 
     # График цены закрытия и скользящего среднего
@@ -57,5 +61,5 @@ def create_and_save_plot(data, ticker, period, filename=None):
 
     plt.tight_layout()  # Настройка макета для предотвращения наложения
     plt.savefig(filename)
-    plt.close()  # Закрыть фигуру, чтобы освободить память
+    plt.close()  # Закрыть график, чтобы освободить память
     print(f"График сохранен как {filename}")

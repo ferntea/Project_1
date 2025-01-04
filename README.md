@@ -46,7 +46,9 @@
 CSV файл AAPL_5y_stock_data_20241225_073428.csv
 4. Реализована функция для расчёта и отображения на графике дополнительных технических индикаторов, например, RSI или MACD.
 Соответствующие исзенения внесены в файлы main.py, data_download.py, data_plotting
-5.
+5. Реализована функция улучшения управления временным периодом.
+6. Реализована функция добавления параметра для выбора стиля графика.
+Стили заимствована в источнике https://matplotlib.org/stable/gallery/style_sheets/style_sheets_reference.html
 
 # Примеры графиков акций
 
@@ -88,3 +90,14 @@ CSV файл AAPL_5y_stock_data_20241225_073428.csv
 ## Цена акций, а также индексы RSI и Macd комании Apple за заданный период
 
 ![График Цена акций и индексы RSI и Macd комании Apple](results/AAPL_None_stock_price_chart_20241228_003520.png)
+
+
+## Пример выбора стиля графика "bmh" (Bayesian Methods for Hackers)
+
+![Пример выбора стиля графика "bmh"
+](results/AAPL_6mo_stock_price_chart_20250104_164658)
+
+
+## Пример выбора стиля графика "dark_background"
+
+![Пример выбора стиля графика "dark_background"](results/AAPL_6mo_stock_price_chart_20250104_164658)
