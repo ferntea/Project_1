@@ -95,8 +95,7 @@ CSV файл AAPL_5y_stock_data_20241225_073428.csv
 
 ## Пример выбора стиля графика "bmh" (Bayesian Methods for Hackers)
 
-![Пример выбора стиля графика "bmh"
-](results/AAPL_6mo_stock_price_chart_20250104_164658.png)
+![Пример выбора стиля графика "bmh"](results/AAPL_6mo_stock_price_chart_20250104_164658.png)
 
 
 ## Пример выбора стиля графика "dark_background"
@@ -106,5 +105,4 @@ CSV файл AAPL_5y_stock_data_20241225_073428.csv
 
 ## Пример отображения стандартного отклонения цены закрытия акций
 
-![Пример отображения стандартного отклонения цены закрытия акций]
-(results/TSLA_5y_stock_price_chart_20250109_201920.png)
+![Пример отображения стандартного отклонения цены закрытия акций](results/TSLA_5y_stock_price_chart_20250109_201920.png)
