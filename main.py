@@ -41,8 +41,13 @@ def main():
     # Export stock data to CSV file
     dd.export_data_to_csv(stock_data, filename)
 
-    # Calculate and display average closing price
-    dd.calculate_and_display_average_price(stock_data, ticker)
+    # Access the 'Close' column using the MultiIndex
+    close_column = ('Close', ticker)
+    average_price = stock_data[close_column].mean()
+
+    # Calculate and display standard deviation of closing prices
+    std_dev = dd.calculate_standard_deviation(stock_data, ticker)
+    print(f"Стандартное отклонение цены закрытия: {std_dev:.2f}")
 
     # Add moving average to the data
     stock_data = dd.add_moving_average(stock_data, ticker)  # Pass ticker here
@@ -62,7 +67,7 @@ def main():
 
     # Plot the data
     print("Сохранение графика...")
-    dplt.create_and_save_plot(stock_data, ticker, period, plot_style)
+    dplt.create_and_save_plot(stock_data, ticker, period, plot_style, average_price=average_price, std_dev=std_dev)
 
 
 if __name__ == "__main__":

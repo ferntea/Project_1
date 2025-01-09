@@ -123,3 +123,18 @@ def calculate_macd(data, ticker):
     data['MACD'] = exp1 - exp2
     data['Signal_Line'] = data['MACD'].ewm(span=9, adjust=False).mean()
     return data
+
+def calculate_standard_deviation(data, ticker):
+    """
+    Рассчитывает стандартное отклонение цен закрытия.
+
+    Параметры:
+    data (DataFrame): Данные о акциях, включая цены закрытия.
+    ticker (str): Символ тикера акции для доступа к правильному столбцу.
+
+    Возвращает:
+    float: Стандартное отклонение цен закрытия.
+    """
+    close_column = ('Close', ticker)
+    std_dev = data[close_column].std()
+    return std_dev

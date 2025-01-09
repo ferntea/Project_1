@@ -4,7 +4,7 @@ import pandas as pd
 from datetime import datetime
 import pytz
 
-def create_and_save_plot(data, ticker, period, style='classic', filename=None):
+def create_and_save_plot(data, ticker, period, style='classic', average_price=None, std_dev=None, filename=None):
     """
     Создает график, отображающий цены закрытия, скользящие средние, RSI и MACD, и сохраняет его в файл.
 
@@ -27,7 +27,15 @@ def create_and_save_plot(data, ticker, period, style='classic', filename=None):
     # График цены закрытия и скользящего среднего
     ax1.plot(data.index, data['Close'], label='Цена закрытия', color='blue')
     ax1.plot(data.index, data['Moving_Average'], label='Скользящее среднее', color='orange')
-    ax1.set_title(f"{ticker} Цена акций с течением времени")
+
+    # Формирование заголовка с информацией о средней цене и стандартном отклонении
+    title = f"{ticker} Цена акций с течением времени\n"
+    if average_price is not None:
+        title += f"Средняя цена закрытия: {average_price:.2f}\n"
+    if std_dev is not None:
+        title += f"Стандартное отклонение: {std_dev:.2f}"
+
+    ax1.set_title(title)
     ax1.set_ylabel("Цена")
     ax1.legend()
 
